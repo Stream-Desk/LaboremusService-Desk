@@ -11,7 +11,7 @@
       <v-btn icon class="btn"><i class="fas fa-user"></i></v-btn>
       <v-btn icon class="btn"><i class="fas fa-bell"></i></v-btn>
       <email></email>
-  
+
       <v-btn depressed class="button" small color="" href="">Login</v-btn>
     </v-app-bar>
 

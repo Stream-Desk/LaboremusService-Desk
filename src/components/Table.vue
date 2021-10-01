@@ -1,50 +1,55 @@
 <template>
-<v-container>
-<v-card outlined>
-    <br />
-    <h5 class="header">All Ticktes</h5>
-    <v-card-actions>
-      <v-row>
-        <v-col cols="12" sm="6">
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search here"
-            hide-details
-            class="search"
-            name="query"
-          ></v-text-field>
-        </v-col>    
-      
-        <v-col cols="12" sm="6">
-          <v-select
-            class="filter"
-            :items="status"
-            label="Status"
-            solo
-          ></v-select>
-        </v-col>
-      </v-row>
-    </v-card-actions>
+  <v-container>
+    <v-card outlined>
+      <br />
+      <h5 class="header">All Ticktes</h5>
+      <v-card-actions>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search here"
+              hide-details
+              class="search"
+              name="query"
+            ></v-text-field>
+          </v-col>
 
-    <div id="grid-template">
-      <div class="table-header-wrapper">
-        <v-data-table :search="search" :headers="headers" :items="tickets">
-          <template v-slot:[`item.status`]="{item}" >
-             <v-chip  small flat @click="viewTicket(item.id)" :color="getColor(item.status)"
-        dark>
-            {{ item.status }}
-          </v-chip>
-          </template>
+          <v-col cols="12" sm="6">
+            <v-select
+              class="filter"
+              :items="status"
+              label="Status"
+              solo
+            ></v-select>
+          </v-col>
+        </v-row>
+      </v-card-actions>
 
-          <template  v-slot:[`item.actions`]="{ item }">
-             <v-icon small @click="deleteTickets(item)">mdi-delete</v-icon>
-          </template>
-        </v-data-table>
+      <div id="grid-template">
+        <div class="table-header-wrapper">
+          <v-data-table :search="search" :headers="headers" :items="tickets">
+            <template v-slot:[`item.status`]="{ item }">
+              <v-chip
+                small
+                flat
+                @click="viewTicket(item.id)"
+                :color="getColor(item.status)"
+                dark
+              >
+                {{ item.status }}
+              </v-chip>
+            </template>
+
+            <template v-slot:[`item.actions`]="{ item }">
+              <v-icon small @click="deleteTickets(item)">mdi-delete</v-icon>
+            </template>
+          </v-data-table>
+        </div>
       </div>
-    </div>
-  </v-card>
-</v-container>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -55,14 +60,7 @@ export default {
     return {
       search: "",
       tickets: [],
-      slots: [
-        "TicketId",
-        "Priority",
-        "Category",
-        "Date",
-        "Summary",
-        "Actions",
-      ],
+      slots: ["TicketId", "Priority", "Category", "Date", "Summary", "Actions"],
       status: ["Open", "Closed", "Resolved", "Pending"],
       headers: [
         {
@@ -102,19 +100,19 @@ export default {
       }, 10000);
     },
 
-    refreshList(){
+    refreshList() {
       this.retrieveTickets();
     },
 
     viewTicket(id) {
-      this.$router.push({name: "Raised", params: {id: id}});
+      this.$router.push({ name: "Raised", params: { id: id } });
     },
 
-    getColor (status) {
-        if (status > open) return 'green'
-        else if (status > closed) return 'yellow'
-        else return 'red'
-      },
+    getColor(status) {
+      if (status > open) return "green";
+      else if (status > closed) return "yellow";
+      else return "red";
+    },
   },
 };
 </script>

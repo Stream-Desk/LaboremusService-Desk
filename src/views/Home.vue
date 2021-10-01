@@ -2,7 +2,6 @@
   <div>
     <Table />
     <About />
-  
   </div>
 </template>
 

@@ -33,8 +33,6 @@ const routes = [
     name: "Raised",
     component: () => import("../components/Raised.vue"),
   },
-
-
 ];
 
 const router = new VueRouter({

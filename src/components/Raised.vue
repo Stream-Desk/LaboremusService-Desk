@@ -1,5 +1,5 @@
 <template>
-  <v-card  class="mx-auto my-12" width="600" height="600" id="card">
+  <v-card class="mx-auto my-12" width="600" height="600" id="card">
     <v-container grid-list-xs>
       <v-layout row wrap>
         <v-card-text>
@@ -82,37 +82,37 @@
         </v-card-text>
       </v-layout>
       <hr />
-     
-    <div class="text-center">
-    <v-dialog v-model="dialog" width="500">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn class="btn" v-bind="attrs" v-on="on" primary outlined>
-          Add Comment
-        </v-btn>
-      </template>
-      <v-card>
-        <v-card-text class="commentsCard">
-          <br />
-          <textarea
-            type="textarea"
-            placeholder="Comment here"
-            cols="60"
-            rows="9"
-            class="area"
-             v-model="comment.text"
-             name="message"
-          ></textarea>
-          &nbsp;
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn type="submit" color="primary" @click="dialog = false"
-            >Add</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+
+      <div class="text-center">
+        <v-dialog v-model="dialog" width="500">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="btn" v-bind="attrs" v-on="on" primary outlined>
+              Add Comment
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-text class="commentsCard">
+              <br />
+              <textarea
+                type="textarea"
+                placeholder="Comment here"
+                cols="60"
+                rows="9"
+                class="area"
+                v-model="comment.text"
+                name="message"
+              ></textarea>
+              &nbsp;
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn type="submit" color="primary" @click="dialog = false"
+                >Add</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
       <v-btn class="view" color="primary" @click="sendComment">Send</v-btn>
     </v-container>
   </v-card>

@@ -1,78 +1,78 @@
 <template>
-    <v-dialog v-model="dialog" persistent class="form" v-if="!submitted" >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          class="btns"
-          id="contain"
-          small
-          color=""
-          @click="onOpen"
-          v-bind="attrs"
-          v-on="on"
-          ><i class="fas fa-envelope-square">Email</i></v-btn
-        >
-      </template>
+  <v-dialog v-model="dialog" persistent class="form" v-if="!submitted">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn
+        class="btns"
+        id="contain"
+        small
+        color=""
+        @click="onOpen"
+        v-bind="attrs"
+        v-on="on"
+        ><i class="fas fa-envelope-square">Email</i></v-btn
+      >
+    </template>
 
-      <form ref="form">
-        <v-card id="card" width="520px" height="580px" class="mx-auto my-12">
-          <i @click="close" class="fas fa-times" id="close"></i>
-          <v-conatiner grid-list-xs>
-            <v-card-text>
-              <label>Name</label>
-              <input
-                type="text"
-                v-model="email.emailToName"
-                name="name"
-                placeholder="Your Name"
-              />
-              <label>Email</label>
-              <input
-                type="email"
-                v-model="email.emailToId"
-                name="email"
-                placeholder="Email"
-              />
-              <label>Subject</label>
-              <input
-                type="text"
-                v-model="email.emailSubject"
-                name="subject"
-                placeholder="Subject"
-              />
-              <label>Message</label>
-              <textarea
-                name="message"
-                v-model="email.emailBody"
-                cols="30"
-                rows="5"
-                placeholder="Message"
+    <form ref="form">
+      <v-card id="card" width="520px" height="580px" class="mx-auto my-12">
+        <i @click="close" class="fas fa-times" id="close"></i>
+        <v-conatiner grid-list-xs>
+          <v-card-text>
+            <label>Name</label>
+            <input
+              type="text"
+              v-model="email.emailToName"
+              name="name"
+              placeholder="Your Name"
+            />
+            <label>Email</label>
+            <input
+              type="email"
+              v-model="email.emailToId"
+              name="email"
+              placeholder="Email"
+            />
+            <label>Subject</label>
+            <input
+              type="text"
+              v-model="email.emailSubject"
+              name="subject"
+              placeholder="Subject"
+            />
+            <label>Message</label>
+            <textarea
+              name="message"
+              v-model="email.emailBody"
+              cols="30"
+              rows="5"
+              placeholder="Message"
+            >
+            </textarea>
+            <v-card-actions class="submit">
+              <v-spacer></v-spacer>
+              <v-btn
+                elevation="1"
+                variant="outlined"
+                class="mb-5"
+                rounded="pill"
+                text-center
+                id="buton"
+                >Cancel</v-btn
               >
-              </textarea>
-              <v-card-actions class="submit">
-                <v-spacer></v-spacer>
-                <v-btn
-                  elevation="1"
-                  variant="outlined"
-                  class="mb-5"
-                  rounded="pill"
-                  text-center
-                  id="buton"
-                  >Cancel</v-btn
-                >
-                <v-btn
-                  elevation="1"
-                  class="mb-5"
-                  @click="sendEmail"
-                  rounded="pill"
-                  id="btn"
-                  >Send</v-btn
-                >
-              </v-card-actions>
-            </v-card-text>
-          </v-conatiner>
-        </v-card>
-      </form>
-    </v-dialog>
+              <v-btn
+                elevation="1"
+                class="mb-5"
+                @click="sendEmail"
+                rounded="pill"
+                id="btn"
+                >Send</v-btn
+              >
+            </v-card-actions>
+          </v-card-text>
+        </v-conatiner>
+      </v-card>
+    </form>
+  </v-dialog>
 </template>
 
 <script>
@@ -185,7 +185,4 @@ input[type="submit"]:hover {
 #card {
   float: right;
 }
-
-
-
 </style>
