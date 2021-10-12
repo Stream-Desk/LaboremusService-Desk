@@ -8,11 +8,41 @@
       </div>
 
       <v-spacer></v-spacer>
-      <v-btn icon class="btn"><i class="fas fa-user"></i></v-btn>
-      <v-btn icon class="btn"><i class="fas fa-bell"></i></v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon class="btn" dark v-bind="attrs" v-on="on">
+            <i class="fas fa-user"></i>
+          </v-btn>
+        </template>
+        <span>User</span>
+      </v-tooltip>
+
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon class="btn" dark v-bind="attrs" v-on="on">
+            <i class="fas fa-bell"> </i>
+          </v-btn>
+        </template>
+        <span>Notifications</span>
+      </v-tooltip>
       <email></email>
 
-      <v-btn depressed class="button" small color="" href="">Login</v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            depressed
+            class="button"
+            color=""
+            href="/login"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+          </v-btn>
+        </template>
+        <span>Sign-out</span>
+      </v-tooltip>
     </v-app-bar>
 
     <v-main>
@@ -37,7 +67,7 @@ export default {
 
 <style scoped>
 .bar .title {
-  color: rgb(250, 246, 20);
+  color: rgb(235, 211, 2);
   font-size: 25px;
   text-transform: uppercase;
   font-weight: 800;
@@ -53,11 +83,14 @@ export default {
   height: 10px;
   line-height: 20px;
 }
-.button {
+/* .button {
   border: 1px solid white;
-}
+} */
 .btns {
   border: 1px solid white;
   margin: 0 8px;
+}
+.buttons {
+  font-size: 16px;
 }
 </style>

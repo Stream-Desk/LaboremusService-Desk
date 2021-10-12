@@ -1,80 +1,71 @@
 <template>
-  <v-container>
-    <v-card outlined>
-      <br />
-      <h5 class="header">All Ticktes</h5>
-      <v-card-actions>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search here"
-              hide-details
-              class="search"
-              name="query"
-            ></v-text-field>
-          </v-col>
+  <v-card outlined>
+    <br />
+    <h5 class="header">All Tickets</h5>
+    <v-card-actions>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search here"
+            hide-details
+            class="search"
+            name="query"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-card-actions>
 
-          <v-col cols="12" sm="6">
-            <v-select
-              class="filter"
-              :items="status"
-              label="Status"
-              solo
-            ></v-select>
-          </v-col>
-        </v-row>
-      </v-card-actions>
+    <div id="grid-template">
+      <div class="table-header-wrapper">
+        <v-data-table :search="search" :headers="headers" :items="tickets">
+          <template v-slot:[`item.status`]="{ item }">
+            <v-chip small flat :color="getColor(item.status)" dark>
+              {{ item.status }}
+            </v-chip>
+          </template>
 
-      <div id="grid-template">
-        <div class="table-header-wrapper">
-          <v-data-table :search="search" :headers="headers" :items="tickets">
-            <template v-slot:[`item.status`]="{ item }">
-              <v-chip
-                small
-                flat
-                @click="viewTicket(item.id)"
-                :color="getColor(item.status)"
-                dark
-              >
-                {{ item.status }}
-              </v-chip>
-            </template>
+          <template v-slot:[`item.name`]="{ item }">
+            {{ item.name }}
+          </template>
 
-            <template v-slot:[`item.actions`]="{ item }">
-              <v-icon small @click="deleteTickets(item)">mdi-delete</v-icon>
-            </template>
-          </v-data-table>
-        </div>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small @click="viewTicket(item.id)" color="blue"
+              >mdi-details</v-icon
+            >
+            <v-icon small @click="deleteTicket(item.id)">mdi-delete</v-icon>
+          </template>
+        </v-data-table>
       </div>
-    </v-card>
-  </v-container>
+    </div>
+  </v-card>
 </template>
 
 <script>
 import AllTicketDataService from "../service/AllTicketDataServices";
 
 export default {
+  name: "Table",
+
   data() {
     return {
       search: "",
       tickets: [],
-      slots: ["TicketId", "Priority", "Category", "Date", "Summary", "Actions"],
-      status: ["Open", "Closed", "Resolved", "Pending"],
       headers: [
         {
-          text: "TicketId",
+          text: "Ticket Id",
           align: "start",
           filterable: false,
-          value: "name",
+          value: "ticketNumber",
         },
         { text: "Priority", value: "priority" },
         { text: "Category", value: "category" },
         { text: "Summary", value: "summary" },
-        { text: "Date", value: "date" },
+        { text: "Date", value: "submitDate" },
+        { text: "Requester", value: "name" },
         { text: "Status", value: "status", filterable: true },
-        { text: "Actions", value: "action", sortable: false },
+        { text: "Actions", value: "actions", sortable: false },
       ],
     };
   },
@@ -111,7 +102,17 @@ export default {
     getColor(status) {
       if (status > open) return "green";
       else if (status > closed) return "yellow";
-      else return "red";
+      else return "amber";
+    },
+
+    deleteTicket(id) {
+      AllTicketDataService.delete(id)
+        .then(() => {
+          this.dialog = false;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
 };

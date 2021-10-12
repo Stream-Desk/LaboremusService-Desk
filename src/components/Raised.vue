@@ -1,130 +1,89 @@
 <template>
-  <v-card class="mx-auto my-12" width="600" height="600" id="card">
-    <v-container grid-list-xs>
-      <v-layout row wrap>
-        <v-card-text>
-          <form v-if="currentTicket">
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">TicketId:</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  v-model="currentTicket.id"
-                  disabled
-                  class="form-control-plaintext"
-                />
+  <div>
+    <div class="mx-3 my-6" width="200" id="card">
+      <v-container grid-list-xs>
+        <v-card>
+          <v-btn text color="blue" class="backbtn" href="/table">Back</v-btn>
+          <v-card-text>
+            <form v-if="currentTicket">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">TicketId:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.id }}
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Date:</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  v-model="currentTicket.submitDate"
-                  disabled
-                  class="form-control-plaintext"
-                />
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Priority:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.priority }}
+                </div>
               </div>
-            </div>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Category:</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  v-model="currentTicket.category"
-                  disabled
-                  class="form-control-plaintext"
-                />
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Requester:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.name }}
+                </div>
               </div>
-            </div>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Summary:</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  v-model="currentTicket.summary"
-                  disabled
-                  class="form-control-plaintext"
-                />
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Category:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.category }}
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Description:</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  v-model="currentTicket.description"
-                  disabled
-                  class="form-control-plaintext"
-                />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Attachment:</label>
-              <div class="col-sm-10">
-                <input type="text" disabled class="form-control-plaintext" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Status:</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  v-model="currentTicket.status"
-                  disabled
-                  class="form-control-plaintext"
-                />
-              </div>
-            </div>
-          </form>
-        </v-card-text>
-      </v-layout>
-      <hr />
 
-      <div class="text-center">
-        <v-dialog v-model="dialog" width="500">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn class="btn" v-bind="attrs" v-on="on" primary outlined>
-              Add Comment
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-text class="commentsCard">
-              <br />
-              <textarea
-                type="textarea"
-                placeholder="Comment here"
-                cols="60"
-                rows="9"
-                class="area"
-                v-model="comment.text"
-                name="message"
-              ></textarea>
-              &nbsp;
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn type="submit" color="primary" @click="dialog = false"
-                >Add</v-btn
-              >
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </div>
-      <v-btn class="view" color="primary" @click="sendComment">Send</v-btn>
-    </v-container>
-  </v-card>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Summary:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.summary }}
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Date:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.submitDate }}
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Attachment:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.attachment }}
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Status:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.status }}
+                </div>
+              </div>
+            </form>
+          </v-card-text>
+          <v-divider></v-divider>
+          <comments></comments>
+
+          <v-btn class="view" small color="primary" @click="sendComment">
+            <span class="px-5">Send</span></v-btn
+          >
+        </v-card>
+      </v-container>
+    </div>
+  </div>
 </template>
 
 <script>
 import AllTicketsDataService from "../service/AllTicketDataServices";
+import Comments from "../components/Comments.vue";
 
 export default {
-  name: "ViewTicket",
+  name: "Raised",
 
-  components: {},
+  components: {
+    Comments,
+  },
   data() {
     return {
       currentTicket: null,
@@ -198,15 +157,22 @@ textarea {
   border-radius: 5px;
   box-sizing: border-box;
   margin-top: 6px;
-
   resize: vertical;
 }
 .view {
   float: right;
   right: 3.5rem;
-  margin-bottom: 16px;
+  margin-top: -8%;
 }
-#card {
+/* #card {
   border: 1px solid rgb(161, 161, 161);
+} */
+.backbtn {
+  margin-top: 25px;
+  text-transform: capitalize;
+  margin-inline-start: 10px;
+}
+.divider {
+  margin-left: 13%;
 }
 </style>

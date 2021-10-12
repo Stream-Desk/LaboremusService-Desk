@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Email from "../components/Email.vue";
 import Table from "../components/Table.vue";
+import Login from "../components/Login.vue";
+//import { component } from "vue/types/umd";
 
 Vue.use(VueRouter);
 
@@ -32,6 +34,12 @@ const routes = [
     path: "/raised",
     name: "Raised",
     component: () => import("../components/Raised.vue"),
+  },
+
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
 ];
 

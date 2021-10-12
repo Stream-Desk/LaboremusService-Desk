@@ -9,75 +9,76 @@
         @click="onOpen"
         v-bind="attrs"
         v-on="on"
-        ><i class="fas fa-envelope-square">Email</i></v-btn
+        ><i class="fas fa-envelope-square"> Email</i></v-btn
       >
     </template>
 
-    <form ref="form">
-      <v-card id="card" width="520px" height="580px" class="mx-auto my-12">
-        <i @click="close" class="fas fa-times" id="close"></i>
-        <v-conatiner grid-list-xs>
-          <v-card-text>
-            <label>Name</label>
-            <input
-              type="text"
-              v-model="email.emailToName"
-              name="name"
-              placeholder="Your Name"
-            />
-            <label>Email</label>
-            <input
-              type="email"
-              v-model="email.emailToId"
-              name="email"
-              placeholder="Email"
-            />
-            <label>Subject</label>
-            <input
-              type="text"
-              v-model="email.emailSubject"
-              name="subject"
-              placeholder="Subject"
-            />
-            <label>Message</label>
-            <textarea
-              name="message"
-              v-model="email.emailBody"
-              cols="30"
-              rows="5"
-              placeholder="Message"
-            >
-            </textarea>
-            <v-card-actions class="submit">
-              <v-spacer></v-spacer>
-              <v-btn
-                elevation="1"
-                variant="outlined"
-                class="mb-5"
-                rounded="pill"
-                text-center
-                id="buton"
-                >Cancel</v-btn
-              >
-              <v-btn
-                elevation="1"
-                class="mb-5"
-                @click="sendEmail"
-                rounded="pill"
-                id="btn"
-                >Send</v-btn
-              >
-            </v-card-actions>
-          </v-card-text>
-        </v-conatiner>
-      </v-card>
-    </form>
+    <v-navigation-drawer absolute permanent right width="355px" class="drawer">
+      <i @click="close" class="fas fa-times" id="close"></i>
+      <v-card-text>
+        <label>Name</label>
+        <input
+          type="text"
+          placeholder="Your Name"
+          name="name"
+          v-model="email.emailToName"
+        />
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          v-model="email.emailToId"
+        />
+        <label>Subject</label>
+        <input
+          type="text"
+          name="subject"
+          placeholder="Subject"
+          v-model="email.emailSubject"
+        />
+        <label>Messsage</label>
+        <textarea
+          name="message"
+          cols="30"
+          rows="5"
+          placeholder="Message"
+          v-model="email.emailBody"
+        >
+        </textarea>
+        <v-card-actions class="submit">
+          <v-spacer></v-spacer>
+          <v-btn
+            elevation="1"
+            variant="outlined"
+            class="mb-5 px-5"
+            rounded
+            text-center
+            id="buton"
+            @click="close"
+            >Cancel</v-btn
+          >
+          <v-btn
+            elevation="1"
+            class="mb-5 px-5"
+            v-ripple="{ class: 'primary--text' }"
+            @click="sendEmail"
+            color="primary"
+            rounded
+            id="btn"
+            >Send</v-btn
+          >
+        </v-card-actions>
+      </v-card-text>
+    </v-navigation-drawer>
   </v-dialog>
 </template>
 
 <script>
 import AllTicketsDataService from "../service/AllTicketDataServices";
 export default {
+  name: "Email",
+
   data() {
     return {
       email: {
@@ -129,10 +130,6 @@ export default {
 </script>
 
 <style scoped>
-/* * {
-  box-sizing: border-box;
-} */
-
 .container {
   display: block;
   margin: auto;
@@ -174,15 +171,23 @@ input[type="submit"]:hover {
   background-color: #45a049;
 }
 .btns {
-  border: 1px solid white;
-  margin: 0 8px;
+  border: 1px solid rgb(117, 117, 117);
+  margin: 0 7px;
 }
 #close {
   color: rgb(56, 56, 56);
   padding-top: 10px;
   margin-left: 95%;
 }
-#card {
-  float: right;
+.btns {
+  border: 1px solid white;
+  margin: 0 8px;
 }
+.drawer {
+  margin-top: 5%;
+}
+#buton::before{
+ background-color: transparent !important; 
+}
+
 </style>

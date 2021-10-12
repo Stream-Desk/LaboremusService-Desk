@@ -1,19 +1,19 @@
 <template>
   <div>
-    <Table />
+    <!-- <Table /> -->
     <About />
   </div>
 </template>
 
 <script>
-import Table from "../components/Table.vue";
+// import Table from "../components/Table.vue";
 import About from "../views/About.vue";
 
 export default {
   name: "Home",
 
   components: {
-    Table,
+    // Table,
     About,
   },
 };
