@@ -3,8 +3,9 @@
     <div class="mx-3 my-6" width="200" id="card">
       <v-container grid-list-xs>
         <v-card>
-          <v-btn text color="blue" class="backbtn" href="/table">Back</v-btn>
+          <v-btn text color="blue" class="backbtn" router to="/table">Back</v-btn>
           <v-card-text>
+            <h6 class="h6">Ticket details</h6>
             <form v-if="currentTicket">
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">TicketId:</label>
@@ -57,7 +58,10 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Status:</label>
                 <div class="col-sm-10">
-                  {{ currentTicket.status }}
+                  <v-chip :color="getColor(currentTicket.status)">{{
+                currentTicket.status
+              }}</v-chip>
+                  <!-- {{ currentTicket.status }} -->
                 </div>
               </div>
             </form>
@@ -65,9 +69,9 @@
           <v-divider></v-divider>
           <comments></comments>
 
-          <v-btn class="view" small color="primary" @click="sendComment">
+          <!-- <v-btn class="view" small color="primary" @click="sendComment">
             <span class="px-5">Send</span></v-btn
-          >
+          > -->
         </v-card>
       </v-container>
     </div>
@@ -96,6 +100,7 @@ export default {
   },
   updated: false,
   methods: {
+    //send comment
     sendComment() {
       const data = {
         text: this.comment.text,
@@ -128,11 +133,19 @@ export default {
           console.log(e);
         });
     },
+
+    getColor(status) {
+      if (status == "Open") return "amber";
+      else if (status == "Resolved") return "green";
+      else return "purple";
+    },
   },
   mounted() {
     this.message = "";
     this.getTicket(this.$route.params.id);
   },
+
+
 };
 </script>
 
@@ -174,5 +187,8 @@ textarea {
 }
 .divider {
   margin-left: 13%;
+}
+.h6{
+  color: rgb(118, 182, 255)
 }
 </style>

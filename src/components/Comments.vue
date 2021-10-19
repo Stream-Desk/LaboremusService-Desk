@@ -1,11 +1,11 @@
 <template>
   <div class="navbar-header">
-    <h5>Comments</h5>
+    <h6>Comments</h6>
     <div class="comment" v-for="(comment, index) in comments" :key="index">
       <div>
         <div>
           <div class="reply">
-            <v-avatar color="orange">MM</v-avatar>
+            <v-avatar color="yellow">MM</v-avatar>
             <div class="alert" v-if="alert">
               <a href="#">May</a>
               {{ alert }}
@@ -13,8 +13,8 @@
             <p>{{ comment.text }}</p>
           </div>
           <div class="crud">
-            <v-icon my-3 @click="getComment(comments.id)">mdi-pencil</v-icon>
-            <v-icon my-3 @click="deleteTicket(comment.id)">mdi-delete</v-icon>
+            <v-icon my-3 @click="getComment(comments.id)" color="primary">mdi-pencil</v-icon>
+            <v-icon my-3 @click="deleteTicket(comment.id)" color="red">mdi-delete</v-icon>
           </div>
         </div>
       </div>
@@ -51,15 +51,15 @@
         placeholder="Leave Comment here...  "
       ></textarea>
 
-      <button v-on:click="isHidden = false" @click="sendComment">
-        Add Comment
-      </button>
+      <v-btn v-on:click="isHidden = false" @click="sendComment" small  color="primary">
+       <span class="px-5">Send</span>
+      </v-btn>
     </div>
 
-    <v-btn small v-on:click="isHidden = !isHidden" color="primary" class="px-5">
+    <!-- <v-btn small v-on:click="isHidden = !isHidden" color="primary" class="px-5">
       <v-icon my-2>mdi-comment</v-icon>
       Comment
-    </v-btn>
+    </v-btn> -->
   </div>
 </template>
 
@@ -145,11 +145,11 @@ export default {
 </script>
 
 <style>
-textarea {
-  width: 100%;
-  border: 2px solid #ccc;
+textarea[type="text"] {
+  width: 98%;
+  border: 1px solid #ccc;
   border-radius: 30px;
-  height: 70px;
+  height: 69px;
   font-family: Verdana, Helvetica, sans-serif;
   padding: 10px;
   margin-inline-start: 10px;
@@ -163,9 +163,11 @@ button {
   margin-bottom: 10px;
 }
 .reply {
-  border-left: 3px solid rgb(27, 27, 27);
+  border-left: 3px solid rgb(49, 49, 49);
   padding: 5px 5px;
   background: rgb(238, 242, 243);
+  margin-inline-start: 10px;
+  margin-right: 10px;
 }
 .crud {
   display: flex;
@@ -201,7 +203,7 @@ hr {
 a {
   padding: 0 10px;
 }
-h5 {
+h6 {
   margin-inline-start: 10px;
 }
 </style>

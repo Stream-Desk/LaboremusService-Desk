@@ -52,7 +52,10 @@
             elevation="1"
             variant="outlined"
             class="mb-5 px-5"
+            color="red"
             rounded
+            small
+            dark
             text-center
             id="buton"
             @click="close"
@@ -65,6 +68,7 @@
             @click="sendEmail"
             color="primary"
             rounded
+            small
             id="btn"
             >Send</v-btn
           >
@@ -93,6 +97,7 @@ export default {
     };
   },
   methods: {
+    //Send email
     sendEmail() {
       var data = {
         emailBody: this.email.emailBody,
@@ -101,7 +106,7 @@ export default {
         emailToName: this.email.emailToName,
         status: false,
       };
-
+      
       AllTicketsDataService.email(data)
         .then((response) => {
           this.email.id = response.data.id;

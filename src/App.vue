@@ -25,7 +25,10 @@
         </template>
         <span>Notifications</span>
       </v-tooltip>
-      <email></email>
+
+      
+        <email></email>
+      
 
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -34,7 +37,7 @@
             depressed
             class="button"
             color=""
-            href="/login"
+            router to="/login"
             v-bind="attrs"
             v-on="on"
           >

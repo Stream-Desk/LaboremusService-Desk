@@ -63,9 +63,11 @@ export default {
   },
 
   methods: {
+    //Validate users
     submitHandler() {
       this.$refs.form.validate();
 
+    //Get users from database
       const formData = {
         userName: this.username,
         password: this.password,

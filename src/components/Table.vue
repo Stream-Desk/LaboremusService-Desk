@@ -2,6 +2,8 @@
   <v-card outlined>
     <br />
     <h5 class="header">All Tickets</h5>
+
+    <!-- Search area -->
     <v-card-actions>
       <v-row>
         <v-col cols="12" sm="6">
@@ -17,13 +19,14 @@
       </v-row>
     </v-card-actions>
 
+    <!-- Table -->
     <div id="grid-template">
       <div class="table-header-wrapper">
         <v-data-table :search="search" :headers="headers" :items="tickets">
-          <template v-slot:[`item.status`]="{ item }">
+          <template v-slot:[`item.status`]="{ item }" >  
             <v-chip small flat :color="getColor(item.status)" dark>
               {{ item.status }}
-            </v-chip>
+            </v-chip>   
           </template>
 
           <template v-slot:[`item.name`]="{ item }">
@@ -31,10 +34,12 @@
           </template>
 
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small @click="viewTicket(item.id)" color="blue"
-              >mdi-details</v-icon
+            <v-btn text small @click="viewTicket(item.id)" 
+            color="primary" class="viewbtn" 
+              ><span class="span">Details</span></v-btn
             >
-            <v-icon small @click="deleteTicket(item.id)">mdi-delete</v-icon>
+            <v-icon icon small color="red" 
+            @click="deleteTicket(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
       </div>
@@ -69,6 +74,7 @@ export default {
       ],
     };
   },
+  // Fetching tickets from the database
   created() {
     this.getAllTickets();
   },
@@ -82,6 +88,10 @@ export default {
         AllTicketDataService.getAll()
           .then((response) => {
             this.tickets = response.data;
+            this.tickets.map((ticket) => {
+              ticket.submitDate = this.getDisplaySubmitDate(ticket.submitDate);
+            });
+
 
             console.log(response.data);
           })
@@ -91,20 +101,24 @@ export default {
       }, 10000);
     },
 
+    // Refreshing tickets
     refreshList() {
       this.retrieveTickets();
     },
 
+    //Viewing details of tickets
     viewTicket(id) {
       this.$router.push({ name: "Raised", params: { id: id } });
     },
 
+    //Color of the status
     getColor(status) {
-      if (status > open) return "green";
-      else if (status > closed) return "yellow";
-      else return "amber";
+      if (status == "Open") return "amber";
+      else if (status == "Pending") return "purple";
+      else return "green";
     },
 
+    //Deleting tickets
     deleteTicket(id) {
       AllTicketDataService.delete(id)
         .then(() => {
@@ -114,6 +128,14 @@ export default {
           console.log(e);
         });
     },
+
+    //Date of the tickets
+    getDisplaySubmitDate(submitDate) {
+      submitDate =
+        submitDate.length > 10 ? submitDate.substr(0, 10) + "" : submitDate;
+      return submitDate;
+    },
+
   },
 };
 </script>
@@ -135,5 +157,11 @@ export default {
 }
 .v-card {
   border: 1px solid grey;
+}
+.viewbtn{
+  border-radius: 10px;
+}
+.span{
+  text-transform: capitalize;
 }
 </style>
