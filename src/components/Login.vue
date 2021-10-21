@@ -1,45 +1,74 @@
 <template>
-  <v-main class="d-flex justify-center align-center">
-    <v-card width="370" height="330" class="mx-auto mt-9 pa-9" id="card">
-      <div>
-        <h5 class="text-center" id="title">Stream|<span>Desk</span></h5>
+  <v-main>
+    <v-app-bar app color="" dark class="bar">
+      <div class="d-flex align-center">
+        <v-toolbar-title class="title"
+          >Stream|<span>Desk</span></v-toolbar-title
+        >
       </div>
-      <v-form @submit.prevent="submitHandler" ref="form" v-model="valid">
-        <v-card-text>
-          <v-text-field
-            v-model="username"
-            :rules="usernameRules"
-            type="name"
-            label="Username"
-            placeholder="Username"
-            prepend-inner-icon="mdi-account"
-          />
 
-          <v-text-field
-            label="Password"
-            v-model="password"
-            :rules="passwordRules"
-            required
-            placeholder="Password"
-            :type="showPassword ? 'text' : 'password'"
-            prepend-inner-icon="mdi-key"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="showPassword = !showPassword"
-          />
-        </v-card-text>
+      <v-spacer></v-spacer>
 
-        <v-card-actions class="justify-center">
-          <v-btn type="submit" color="yellow" :disabled="!valid">
-            <span class="px-8">Login</span>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            depressed
+            class="button"
+            color=""
+            router
+            to="/login"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
           </v-btn>
-        </v-card-actions>
-      </v-form>
-    </v-card>
+        </template>
+        <span>Sign-out</span>
+      </v-tooltip>
+    </v-app-bar>
+
+    <div class="d-flex justify-center align-center">
+      <v-card width="370" height="330" class="mx-auto mt-9 pa-9" id="card">
+        <div>
+          <h5 class="text-center" id="title">Stream|<span>Desk</span></h5>
+        </div>
+        <v-form @submit.prevent="submitHandler" ref="form" v-model="valid">
+          <v-card-text>
+            <v-text-field
+              v-model="username"
+              :rules="usernameRules"
+              type="name"
+              label="Username"
+              placeholder="Username"
+              prepend-inner-icon="mdi-account"
+            />
+
+            <v-text-field
+              label="Password"
+              v-model="password"
+              :rules="passwordRules"
+              required
+              placeholder="Password"
+              :type="showPassword ? 'text' : 'password'"
+              prepend-inner-icon="mdi-key"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showPassword = !showPassword"
+            />
+          </v-card-text>
+
+          <v-card-actions class="justify-center">
+            <v-btn type="submit" color="yellow" :disabled="!valid">
+              <span class="px-8">Login</span>
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </div>
   </v-main>
 </template>
 
 <script>
-//import AllTicketDataService from "../service/AllTicketDataServices";
 import axios from "axios";
 
 export default {
@@ -67,7 +96,7 @@ export default {
     submitHandler() {
       this.$refs.form.validate();
 
-    //Get users from database
+      //Get users from database
       const formData = {
         userName: this.username,
         password: this.password,
@@ -99,5 +128,27 @@ export default {
 }
 span {
   color: rgb(29, 29, 29);
+}
+.bar .title {
+  color: rgb(235, 211, 2);
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 800;
+  list-style-type: none;
+}
+.bar .title span {
+  color: #fff;
+}
+.btn {
+  margin: 0 5px;
+  font-size: 16px;
+  width: 10px;
+  height: 10px;
+  line-height: 20px;
+}
+
+.btns {
+  border: 1px solid white;
+  margin: 0 8px;
 }
 </style>

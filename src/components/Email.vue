@@ -106,7 +106,7 @@ export default {
         emailToName: this.email.emailToName,
         status: false,
       };
-      
+
       AllTicketsDataService.email(data)
         .then((response) => {
           this.email.id = response.data.id;
@@ -191,8 +191,7 @@ input[type="submit"]:hover {
 .drawer {
   margin-top: 5%;
 }
-#buton::before{
- background-color: transparent !important; 
+#buton::before {
+  background-color: transparent !important;
 }
-
 </style>

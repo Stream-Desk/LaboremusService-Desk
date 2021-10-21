@@ -3,7 +3,9 @@
     <div class="mx-3 my-6" width="200" id="card">
       <v-container grid-list-xs>
         <v-card>
-          <v-btn text color="blue" class="backbtn" router to="/table">Back</v-btn>
+          <v-btn text color="blue" class="backbtn" router to="/table"
+            >Back</v-btn
+          >
           <v-card-text>
             <h6 class="h6">Ticket details</h6>
             <form v-if="currentTicket">
@@ -59,8 +61,8 @@
                 <label class="col-sm-2 col-form-label">Status:</label>
                 <div class="col-sm-10">
                   <v-chip :color="getColor(currentTicket.status)">{{
-                currentTicket.status
-              }}</v-chip>
+                    currentTicket.status
+                  }}</v-chip>
                   <!-- {{ currentTicket.status }} -->
                 </div>
               </div>
@@ -144,8 +146,6 @@ export default {
     this.message = "";
     this.getTicket(this.$route.params.id);
   },
-
-
 };
 </script>
 
@@ -188,7 +188,7 @@ textarea {
 .divider {
   margin-left: 13%;
 }
-.h6{
-  color: rgb(118, 182, 255)
+.h6 {
+  color: rgb(118, 182, 255);
 }
 </style>

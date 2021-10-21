@@ -13,8 +13,12 @@
             <p>{{ comment.text }}</p>
           </div>
           <div class="crud">
-            <v-icon my-3 @click="getComment(comments.id)" color="primary">mdi-pencil</v-icon>
-            <v-icon my-3 @click="deleteTicket(comment.id)" color="red">mdi-delete</v-icon>
+            <v-icon my-3 @click="getComment(comments.id)" color="primary"
+              >mdi-pencil</v-icon
+            >
+            <v-icon my-3 @click="deleteTicket(comment.id)" color="red"
+              >mdi-delete</v-icon
+            >
           </div>
         </div>
       </div>
@@ -51,8 +55,13 @@
         placeholder="Leave Comment here...  "
       ></textarea>
 
-      <v-btn v-on:click="isHidden = false" @click="sendComment" small  color="primary">
-       <span class="px-5">Send</span>
+      <v-btn
+        v-on:click="isHidden = false"
+        @click="sendComment"
+        small
+        color="primary"
+      >
+        <span class="px-5">Send</span>
       </v-btn>
     </div>
 
