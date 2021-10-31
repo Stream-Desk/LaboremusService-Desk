@@ -190,5 +190,6 @@ textarea {
 }
 .h6 {
   color: rgb(118, 182, 255);
+  padding-left: 39%;
 }
 </style>

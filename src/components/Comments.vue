@@ -38,9 +38,9 @@
           <v-card-actions>
             <v-spacer></v-spacer>
 
-            <v-btn color="primary darken-1"> Delete </v-btn>
+            <v-btn color="primary darken-1" class="btn"> Delete </v-btn>
 
-            <v-btn color="primary darken-1" @click="dialog = false">
+            <v-btn color="primary darken-1" @click="dialog = false" class="btn">
               Cancel
             </v-btn>
           </v-card-actions>
@@ -60,8 +60,9 @@
         @click="sendComment"
         small
         color="primary"
+        id="subtn"
       >
-        <span class="px-5">Send</span>
+        <span class="px-5">Submit</span>
       </v-btn>
     </div>
 
@@ -157,11 +158,15 @@ export default {
 textarea[type="text"] {
   width: 98%;
   border: 1px solid #ccc;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   height: 69px;
   font-family: Verdana, Helvetica, sans-serif;
   padding: 10px;
   margin-inline-start: 10px;
+}
+textarea:focus{
+  outline: 0;
+  box-shadow: none !important;
 }
 button {
   color: #ccc;
@@ -172,7 +177,7 @@ button {
   margin-bottom: 10px;
 }
 .reply {
-  border-left: 3px solid rgb(49, 49, 49);
+  border-left: 2px solid rgb(49, 49, 49);
   padding: 5px 5px;
   background: rgb(238, 242, 243);
   margin-inline-start: 10px;
@@ -186,7 +191,7 @@ button {
   margin: 0 10px;
 }
 hr {
-  border: 2px solid gray;
+  border: 1px solid gray;
   margin-top: 2rem;
 }
 .navbar-header {
@@ -214,5 +219,11 @@ a {
 }
 h6 {
   margin-inline-start: 10px;
+}
+#subtn{
+  margin-left: 83%;
+}
+.btn{
+  margin-left: 15px;
 }
 </style>

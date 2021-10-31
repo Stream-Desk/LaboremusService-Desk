@@ -26,8 +26,15 @@
         <span>Notifications</span>
       </v-tooltip>
 
-      <email></email>
-
+  <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon class="btn" dark v-bind="attrs" v-on="on">
+            <email></email>
+          </v-btn>
+        </template>
+        <span>Email</span>
+      </v-tooltip>
+      
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn

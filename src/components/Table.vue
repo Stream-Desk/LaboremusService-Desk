@@ -166,7 +166,7 @@ export default {
 }
 .v-card {
   border: 1px solid grey;
-  margin-top: -64%;
+  margin-top: -60%;
 }
 .viewbtn {
   border-radius: 10px;

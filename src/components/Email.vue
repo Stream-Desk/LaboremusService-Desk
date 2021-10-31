@@ -2,14 +2,14 @@
   <v-dialog v-model="dialog" persistent class="form" v-if="!submitted">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
+        icon
         class="btns"
         id="contain"
-        small
-        color=""
+        dark
         @click="onOpen"
         v-bind="attrs"
         v-on="on"
-        ><i class="fas fa-envelope-square"> Email</i></v-btn
+        ><i class="fas fa-envelope-square"></i></v-btn
       >
     </template>
 
@@ -175,18 +175,18 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #45a049;
 }
-.btns {
-  border: 1px solid rgb(117, 117, 117);
-  margin: 0 7px;
-}
 #close {
   color: rgb(56, 56, 56);
   padding-top: 10px;
   margin-left: 95%;
 }
 .btns {
-  border: 1px solid white;
-  margin: 0 8px;
+  /* border: 1px solid white; */
+  margin: 0 5px;
+  font-size: 16px;
+   width: 10px;
+  height: 10px;
+   line-height: 20px;
 }
 .drawer {
   margin-top: 5%;
