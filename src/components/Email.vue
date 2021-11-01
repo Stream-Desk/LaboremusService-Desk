@@ -1,19 +1,17 @@
 <template>
-  <v-dialog v-model="dialog" persistent class="form" v-if="!submitted">
-    <template v-slot:activator="{ on, attrs }">
+  <v-container >
+    <v-container class="fill-height">
       <v-btn
-        icon
+        small
         class="btns"
         id="contain"
-        dark
-        @click="onOpen"
-        v-bind="attrs"
-        v-on="on"
-        ><i class="fas fa-envelope-square"></i></v-btn
+        color="primary"
+        @click.stop="drawer = !drawer"
+        ><span class="px-3">Send Email</span></v-btn
       >
-    </template>
+    </v-container>
 
-    <v-navigation-drawer absolute permanent right width="355px" class="drawer">
+    <v-navigation-drawer absolute temporary right width="355px" class="drawer" v-if="!submitted" v-model="drawer">
       <i @click="close" class="fas fa-times" id="close"></i>
       <v-card-text>
         <label>Name</label>
@@ -75,7 +73,7 @@
         </v-card-actions>
       </v-card-text>
     </v-navigation-drawer>
-  </v-dialog>
+  </v-container>
 </template>
 
 <script>
@@ -94,6 +92,7 @@ export default {
       submitted: false,
       dialogCancel: false,
       dialog: false,
+      drawer: null,
     };
   },
   methods: {
@@ -110,7 +109,7 @@ export default {
       AllTicketsDataService.email(data)
         .then((response) => {
           this.email.id = response.data.id;
-          console.log(response.data);
+          console.log(response.doata);       
           this.submitted = true;
         })
         .catch((e) => {
@@ -118,17 +117,17 @@ export default {
         });
     },
 
-    newTicket() {
-      this.submitted = false;
-      this.ticket = {};
+    newEmail() {
+      // this.submitted = false;
+      this.email = {};
     },
 
-    onOpen() {
-      this.dialog = true;
-    },
+    // onOpen() {
+    //   this.dialog = true;
+    // },
 
     close() {
-      this.dialog = false;
+      this.drawer = false;
     },
   },
 };
@@ -177,20 +176,23 @@ input[type="submit"]:hover {
 }
 #close {
   color: rgb(56, 56, 56);
-  padding-top: 10px;
-  margin-left: 95%;
+  padding-top: 15px;
+  margin-left: 85%;
 }
 .btns {
   /* border: 1px solid white; */
-  margin: 0 5px;
-  font-size: 16px;
-   width: 10px;
-  height: 10px;
-   line-height: 20px;
+  /* margin: 0 5px; */
+  /* font-size: 16px; */
+  /* width: 10px;
+  height: 10px; */
+  line-height: 10px;
+  text-transform: capitalize;
+  margin-left: 100%;
+  margin-top: 20px;
 }
-.drawer {
-  margin-top: 5%;
-}
+/* .drawer {
+  margin-top: 1%;
+} */
 #buton::before {
   background-color: transparent !important;
 }

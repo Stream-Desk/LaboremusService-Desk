@@ -121,7 +121,7 @@ export default {
 <style scoped>
 #card {
   border-radius: 10px;
-  border: 1px solid rgb(201, 201, 201);
+  border: 1px outset rgb(253, 234, 59);
 }
 #title {
   color: rgb(253, 234, 59);

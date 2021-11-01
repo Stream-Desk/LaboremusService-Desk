@@ -63,8 +63,9 @@
         id="subtn"
       >
         <span class="px-5">Submit</span>
-      </v-btn>
+      </v-btn>  
     </div>
+  
 
     <!-- <v-btn small v-on:click="isHidden = !isHidden" color="primary" class="px-5">
       <v-icon my-2>mdi-comment</v-icon>
@@ -75,6 +76,7 @@
 
 <script>
 import CommentService from "../service/CommentDataService";
+
 export default {
   data() {
     return {

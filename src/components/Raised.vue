@@ -8,6 +8,9 @@
           >
           <v-card-text>
             <h6 class="h6">Ticket details</h6>
+           
+             <email></email>
+
             <form v-if="currentTicket">
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">TicketId:</label>
@@ -43,6 +46,13 @@
                 </div>
               </div>
 
+               <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Description:</label>
+                <div class="col-sm-10">
+                  {{ currentTicket.description }}
+                </div>
+              </div>
+
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Date:</label>
                 <div class="col-sm-10">
@@ -53,7 +63,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Attachment:</label>
                 <div class="col-sm-10">
-                  {{ currentTicket.attachment }}
+                <a :href="currentTicket.fileUrls">{{ currentTicket.name }}</a>
                 </div>
               </div>
 
@@ -83,12 +93,15 @@
 <script>
 import AllTicketsDataService from "../service/AllTicketDataServices";
 import Comments from "../components/Comments.vue";
+import Email from "../components/Email.vue";
 
 export default {
   name: "Raised",
 
   components: {
     Comments,
+    Email,
+
   },
   data() {
     return {
@@ -189,7 +202,9 @@ textarea {
   margin-left: 13%;
 }
 .h6 {
-  color: rgb(118, 182, 255);
+  color: rgb(2, 33, 68);
   padding-left: 39%;
+  font-weight: 600;
+  font-size: 20px;
 }
 </style>
