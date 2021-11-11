@@ -10,7 +10,7 @@
               <a href="#">May</a>
               {{ alert }}
             </div>
-            <p>{{ comment.text }}</p>
+            <p>{{ currentComment.text }}</p>
           </div>
           <div class="crud">
             <v-icon my-3 @click="getComment(comments.id)" color="primary"
@@ -48,25 +48,6 @@
       </v-dialog>
     </div>
 
-    <div class="comment-form" v-if="!isHidden">
-      <textarea
-        type="text"
-        v-model="comment.text"
-        placeholder="Leave Comment here...  "
-      ></textarea>
-
-      <v-btn
-        v-on:click="isHidden = false"
-        @click="sendComment"
-        small
-        color="primary"
-        id="subtn"
-      >
-        <span class="px-5">Submit</span>
-      </v-btn>  
-    </div>
-  
-
     <!-- <v-btn small v-on:click="isHidden = !isHidden" color="primary" class="px-5">
       <v-icon my-2>mdi-comment</v-icon>
       Comment
@@ -80,59 +61,24 @@ import CommentService from "../service/CommentDataService";
 export default {
   data() {
     return {
-      comments: [],
       currentComment: null,
-      comment: {
-        text: "",
-        reply: "",
-      },
       dialog: false,
       isHidden: false,
     };
   },
-  created() {
-    this.retrieveComment();
+  mounted(){
+    this.getComment(this.$route.params.id);
   },
   methods: {
     //Open dialog
     open() {
       this.dialog = true;
     },
-    // @Send comment
-    sendComment() {
-      const data = {
-        text: this.comment.text,
-      };
-      CommentService.createComment(data)
-        .then((response) => {
-          this.comment.id = response.data.id;
-          console.log(response.data);
-          this.submitted = true;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-    // @Get all comments
-    retrieveComment(id) {
-      var comments = comments;
-      setInterval(() => {
-        CommentService.getAll(id)
-          .then((response) => {
-            this.comments = response.data;
-            this.alert = "added comment - just now";
-            console.log(response.data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }, 10000);
-    },
     // @Get comment by id
     getComment(id) {
       CommentService.get(id)
         .then((response) => {
-          this.comments = response.data;
+          this.currentComment = response.data;
           console.log(response.data);
         })
         .catch((e) => {

@@ -6,7 +6,7 @@ class CommentService {
   }
 
   get(id) {
-    return http.get(`/api/Comments/${id}`);
+    return http.get(`/api/Comments/commentsByTicketId/${id}`);
   }
 
   createComment(data) {

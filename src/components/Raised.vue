@@ -81,9 +81,22 @@
           <v-divider></v-divider>
           <comments></comments>
 
-          <!-- <v-btn class="view" small color="primary" @click="sendComment">
-            <span class="px-5">Send</span></v-btn
-          > -->
+          <div class="comment-form" >
+      <textarea
+        type="text"
+        v-model="text"
+        placeholder="Leave Comment here...  "
+      ></textarea>
+
+      <v-btn>
+        @click="sendComment"
+        small
+        color="primary"
+        id="subtn"
+      >
+        <span class="px-5">Submit</span>
+      </v-btn>  
+    </div>
         </v-card>
       </v-container>
     </div>
@@ -105,12 +118,10 @@ export default {
   },
   data() {
     return {
-      currentTicket: null,
-      text: "",
-      comment: {
+      currentTicket: null,   
         text: "",
+        currentTicketId:"",
         dialog: false,
-      },
     };
   },
   updated: false,
@@ -118,11 +129,12 @@ export default {
     //send comment
     sendComment() {
       const data = {
-        text: this.comment.text,
+        text: this.text,
+        ticketId: this.currentTicketId,
       };
       AllTicketsDataService.createComment(data)
         .then((response) => {
-          this.comment.id = response.data.id;
+          this.comment.id = response.data;
           console.log(response.data);
           this.submitted = true;
         })
@@ -142,6 +154,7 @@ export default {
       AllTicketsDataService.get(id)
         .then((response) => {
           this.currentTicket = response.data;
+          this.currentTicketId = response && response.data.id;
           console.log(response.data);
         })
         .catch((e) => {
