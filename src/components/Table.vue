@@ -1,8 +1,11 @@
 <template>
-  <v-container>
+  <v-main>
+    <bar></bar>
     <v-card outlined>
       <br />
-      <h5 class="header">All Ticktes</h5>
+      <h5 class="header">All Tickets</h5>
+
+      <!-- Search area -->
       <v-card-actions>
         <v-row>
           <v-col cols="12" sm="6">
@@ -15,69 +18,74 @@
               name="query"
             ></v-text-field>
           </v-col>
-
-          <v-col cols="12" sm="6">
-            <v-select
-              class="filter"
-              :items="status"
-              label="Status"
-              solo
-            ></v-select>
-          </v-col>
         </v-row>
       </v-card-actions>
 
+      <!-- Table -->
       <div id="grid-template">
         <div class="table-header-wrapper">
           <v-data-table :search="search" :headers="headers" :items="tickets">
             <template v-slot:[`item.status`]="{ item }">
-              <v-chip
-                small
-                flat
-                @click="viewTicket(item.id)"
-                :color="getColor(item.status)"
-                dark
-              >
+              <v-chip small flat :color="getColor(item.status)" dark>
                 {{ item.status }}
               </v-chip>
             </template>
 
+            <template v-slot:[`item.name`]="{ item }">
+              {{ item.name }}
+            </template>
+
             <template v-slot:[`item.actions`]="{ item }">
-              <v-icon small @click="deleteTickets(item)">mdi-delete</v-icon>
+              <v-btn
+                text
+                small
+                @click="viewTicket(item.id)"
+                color="primary"
+                class="viewbtn"
+                ><span class="span">Details</span></v-btn
+              >
+              <v-icon icon small color="red" @click="deleteTicket(item.id)"
+                >mdi-delete</v-icon
+              >
             </template>
           </v-data-table>
         </div>
       </div>
     </v-card>
-  </v-container>
+  </v-main>
 </template>
 
 <script>
 import AllTicketDataService from "../service/AllTicketDataServices";
+import Bar from "../components/Bar.vue";
 
 export default {
+  name: "Table",
+  components: {
+    Bar,
+  },
   data() {
     return {
       search: "",
       tickets: [],
-      slots: ["TicketId", "Priority", "Category", "Date", "Summary", "Actions"],
-      status: ["Open", "Closed", "Resolved", "Pending"],
       headers: [
         {
-          text: "TicketId",
+          text: "Ticket Id",
           align: "start",
           filterable: false,
-          value: "name",
+          value: "ticketNumber",
         },
         { text: "Priority", value: "priority" },
         { text: "Category", value: "category" },
         { text: "Summary", value: "summary" },
-        { text: "Date", value: "date" },
+        { text: "Date", value: "submitDate" },
+        { text: "Requester", value: "name" },
         { text: "Status", value: "status", filterable: true },
-        { text: "Actions", value: "action", sortable: false },
+        { text: "Actions", value: "actions", sortable: false },
       ],
     };
   },
+  // Fetching tickets from the database
   created() {
     this.getAllTickets();
   },
@@ -91,6 +99,9 @@ export default {
         AllTicketDataService.getAll()
           .then((response) => {
             this.tickets = response.data;
+            this.tickets.map((ticket) => {
+              ticket.submitDate = this.getDisplaySubmitDate(ticket.submitDate);
+            });
 
             console.log(response.data);
           })
@@ -100,18 +111,39 @@ export default {
       }, 10000);
     },
 
+    // Refreshing tickets
     refreshList() {
       this.retrieveTickets();
     },
 
+    //Viewing details of tickets
     viewTicket(id) {
       this.$router.push({ name: "Raised", params: { id: id } });
     },
 
+    //Color of the status
     getColor(status) {
-      if (status > open) return "green";
-      else if (status > closed) return "yellow";
-      else return "red";
+      if (status == "Open") return "amber";
+      else if (status == "Pending") return "purple";
+      else return "green";
+    },
+
+    //Deleting tickets
+    deleteTicket(id) {
+      AllTicketDataService.delete(id)
+        .then(() => {
+          this.dialog = false;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+
+    //Date of the tickets
+    getDisplaySubmitDate(submitDate) {
+      submitDate =
+        submitDate.length > 10 ? submitDate.substr(0, 10) + "" : submitDate;
+      return submitDate;
     },
   },
 };
@@ -134,5 +166,12 @@ export default {
 }
 .v-card {
   border: 1px solid grey;
+  margin-top: -60%;
+}
+.viewbtn {
+  border-radius: 10px;
+}
+.span {
+  text-transform: capitalize;
 }
 </style>

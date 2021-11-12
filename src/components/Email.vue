@@ -1,83 +1,94 @@
 <template>
-  <v-dialog v-model="dialog" persistent class="form" v-if="!submitted">
-    <template v-slot:activator="{ on, attrs }">
+  <v-container>
+    <v-container class="fill-height">
       <v-btn
+        small
         class="btns"
         id="contain"
-        small
-        color=""
-        @click="onOpen"
-        v-bind="attrs"
-        v-on="on"
-        ><i class="fas fa-envelope-square">Email</i></v-btn
+        color="primary"
+        @click.stop="drawer = !drawer"
+        ><span class="px-3">Send Email</span></v-btn
       >
-    </template>
+    </v-container>
 
-    <form ref="form">
-      <v-card id="card" width="520px" height="580px" class="mx-auto my-12">
-        <i @click="close" class="fas fa-times" id="close"></i>
-        <v-conatiner grid-list-xs>
-          <v-card-text>
-            <label>Name</label>
-            <input
-              type="text"
-              v-model="email.emailToName"
-              name="name"
-              placeholder="Your Name"
-            />
-            <label>Email</label>
-            <input
-              type="email"
-              v-model="email.emailToId"
-              name="email"
-              placeholder="Email"
-            />
-            <label>Subject</label>
-            <input
-              type="text"
-              v-model="email.emailSubject"
-              name="subject"
-              placeholder="Subject"
-            />
-            <label>Message</label>
-            <textarea
-              name="message"
-              v-model="email.emailBody"
-              cols="30"
-              rows="5"
-              placeholder="Message"
-            >
-            </textarea>
-            <v-card-actions class="submit">
-              <v-spacer></v-spacer>
-              <v-btn
-                elevation="1"
-                variant="outlined"
-                class="mb-5"
-                rounded="pill"
-                text-center
-                id="buton"
-                >Cancel</v-btn
-              >
-              <v-btn
-                elevation="1"
-                class="mb-5"
-                @click="sendEmail"
-                rounded="pill"
-                id="btn"
-                >Send</v-btn
-              >
-            </v-card-actions>
-          </v-card-text>
-        </v-conatiner>
-      </v-card>
-    </form>
-  </v-dialog>
+    <v-navigation-drawer
+      absolute
+      temporary
+      right
+      width="355px"
+      class="drawer"
+      v-if="!submitted"
+      v-model="drawer"
+    >
+      <i @click="close" class="fas fa-times" id="close"></i>
+      <v-card-text>
+        <label>Name</label>
+        <input
+          type="text"
+          placeholder="Your Name"
+          name="name"
+          v-model="email.emailToName"
+        />
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          v-model="email.emailToId"
+        />
+        <label>Subject</label>
+        <input
+          type="text"
+          name="subject"
+          placeholder="Subject"
+          v-model="email.emailSubject"
+        />
+        <label>Messsage</label>
+        <textarea
+          name="message"
+          cols="30"
+          rows="5"
+          placeholder="Message"
+          v-model="email.emailBody"
+        >
+        </textarea>
+        <v-card-actions class="submit">
+          <v-spacer></v-spacer>
+          <v-btn
+            elevation="1"
+            variant="outlined"
+            class="mb-5 px-5"
+            color="red"
+            rounded
+            small
+            dark
+            text-center
+            id="buton"
+            @click="close"
+            >Cancel</v-btn
+          >
+          <v-btn
+            elevation="1"
+            class="mb-5 px-5"
+            v-ripple="{ class: 'primary--text' }"
+            @click="sendEmail"
+            color="primary"
+            rounded
+            small
+            id="btn"
+            >Send</v-btn
+          >
+        </v-card-actions>
+      </v-card-text>
+    </v-navigation-drawer>
+  </v-container>
 </template>
 
 <script>
 import AllTicketsDataService from "../service/AllTicketDataServices";
 export default {
+  name: "Email",
+
   data() {
     return {
       email: {
@@ -89,9 +100,11 @@ export default {
       submitted: false,
       dialogCancel: false,
       dialog: false,
+      drawer: null,
     };
   },
   methods: {
+    //Send email
     sendEmail() {
       var data = {
         emailBody: this.email.emailBody,
@@ -104,7 +117,7 @@ export default {
       AllTicketsDataService.email(data)
         .then((response) => {
           this.email.id = response.data.id;
-          console.log(response.data);
+          console.log(response.doata);
           this.submitted = true;
         })
         .catch((e) => {
@@ -112,27 +125,23 @@ export default {
         });
     },
 
-    newTicket() {
-      this.submitted = false;
-      this.ticket = {};
+    newEmail() {
+      // this.submitted = false;
+      this.email = {};
     },
 
-    onOpen() {
-      this.dialog = true;
-    },
+    // onOpen() {
+    //   this.dialog = true;
+    // },
 
     close() {
-      this.dialog = false;
+      this.drawer = false;
     },
   },
 };
 </script>
 
 <style scoped>
-/* * {
-  box-sizing: border-box;
-} */
-
 .container {
   display: block;
   margin: auto;
@@ -173,16 +182,26 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #45a049;
 }
-.btns {
-  border: 1px solid white;
-  margin: 0 8px;
-}
 #close {
   color: rgb(56, 56, 56);
-  padding-top: 10px;
-  margin-left: 95%;
+  padding-top: 15px;
+  margin-left: 85%;
 }
-#card {
-  float: right;
+.btns {
+  /* border: 1px solid white; */
+  /* margin: 0 5px; */
+  /* font-size: 16px; */
+  /* width: 10px;
+  height: 10px; */
+  line-height: 10px;
+  text-transform: capitalize;
+  margin-left: 100%;
+  margin-top: 20px;
+}
+/* .drawer {
+  margin-top: 1%;
+} */
+#buton::before {
+  background-color: transparent !important;
 }
 </style>

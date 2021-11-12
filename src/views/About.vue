@@ -1,15 +1,15 @@
 <template>
   <div class="about">
-    <!-- <Raised /> -->
+    <Login />
   </div>
 </template>
 
 <script>
-//import Raised from '../components/Raised.vue';
+import Login from "../components/Login.vue";
 
 export default {
   components: {
-    //Raised,
+    Login,
   },
 };
 </script>

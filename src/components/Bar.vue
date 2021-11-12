@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <!-- <v-app-bar app color="" dark class="bar">
+    <v-app-bar app color="" dark class="bar">
       <div class="d-flex align-center">
         <v-toolbar-title class="title"
           >Stream|<span>Desk</span></v-toolbar-title
@@ -26,7 +26,14 @@
         <span>Notifications</span>
       </v-tooltip>
 
-      <email></email>
+      <!-- <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon class="btn" dark v-bind="attrs" v-on="on">
+            <email></email>
+          </v-btn>
+        </template>
+        <span>Email</span>
+      </v-tooltip> -->
 
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -45,30 +52,23 @@
         </template>
         <span>Sign-out</span>
       </v-tooltip>
-    </v-app-bar> -->
-
-    <v-main>
-      <router-view />
-    </v-main>
+    </v-app-bar>
   </v-app>
 </template>
 
 <script>
-//import Email from "../src/components/Email.vue";
+// import Email from "../components/Email.vue";
 
 export default {
-  name: "App",
+  name: "Bar",
   // components: {
   //   Email,
   // },
-  data: () => ({
-    //
-  }),
 };
 </script>
 
 <style scoped>
-/* .bar .title {
+.bar .title {
   color: rgb(235, 211, 2);
   font-size: 25px;
   text-transform: uppercase;
@@ -86,11 +86,11 @@ export default {
   line-height: 20px;
 }
 
- .btns {
+.btns {
   border: 1px solid white;
   margin: 0 8px;
 }
 .buttons {
   font-size: 16px;
-} */
+}
 </style>

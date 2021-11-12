@@ -28,6 +28,10 @@ class AllTicketsDataService {
   email(data) {
     return http.post(`/api/Mail`, data);
   }
+
+  login(data) {
+    return http.post(`/api/Users/authenticate`, data);
+  }
 }
 
 export default new AllTicketsDataService();
