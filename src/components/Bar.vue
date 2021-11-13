@@ -10,9 +10,9 @@
       <v-spacer></v-spacer>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon class="btn" dark v-bind="attrs" v-on="on">
-            <i class="fas fa-user"></i>
-          </v-btn>
+          <h6 class="baton" dark v-bind="attrs" v-on="on">
+            {{ username }}
+          </h6>
         </template>
         <span>User</span>
       </v-tooltip>
@@ -64,9 +64,23 @@ export default {
   // components: {
   //   Email,
   // },
+  data() {
+    return {
+      username: "",
+    };
+  },
+
+  methods: {
+    getUsername() {
+      this.username = localStorage.getItem("username");
+    },
+  },
+
+  created: function () {
+    this.getUsername();
+  },
 };
 </script>
-
 <style scoped>
 .bar .title {
   color: rgb(235, 211, 2);
@@ -92,5 +106,10 @@ export default {
 }
 .buttons {
   font-size: 16px;
+}
+.baton {
+  color: rgb(218, 197, 3);
+  text-transform: capitalize;
+  margin: 0 8px;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
   <v-main>
     <bar></bar>
-    <v-card outlined>
+    <div id="container"></div>
+    <v-card outlined >
       <br />
       <h5 class="header">All Tickets</h5>
 
@@ -156,7 +157,7 @@ export default {
 .search {
   /* margin-left: 99%; */
   box-sizing: border-box;
-  width: 70%;
+  width: 100%;
 }
 .filter {
   width: 30%;
@@ -166,12 +167,15 @@ export default {
 }
 .v-card {
   border: 1px solid grey;
-  margin-top: -60%;
+  margin-top: -52%;
 }
 .viewbtn {
   border-radius: 10px;
 }
 .span {
   text-transform: capitalize;
+}
+#container{
+  margin: 5px 10em;
 }
 </style>

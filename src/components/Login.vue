@@ -108,8 +108,11 @@ export default {
         )
         .then((response) => {
           console.log(response, "Successfully login");
+          localStorage.setItem("username", this.username);
+
           this.$router.push("/table");
         })
+
         .catch((error) => {
           console.log(error, "Failed to login");
         });
